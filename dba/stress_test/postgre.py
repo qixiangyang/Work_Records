@@ -8,6 +8,7 @@ File: postgre
 import psycopg2
 import time
 from generate_data import gen_test_data
+from draw_data import gen_graph
 
 
 conn = psycopg2.connect(database="wangyuebing", user="postgres",
@@ -25,36 +26,44 @@ cur = conn.cursor()
 #             date date not null)""")
 # print('创建表成功')
 
-# cur.execute("insert into article_info (title, text, date) values ('%s', '%s', '%s')" % ('ssss', 'sssssssss', '2019-08-02'))
-# conn.commit()
-# conn.close()
 
+def insert_data(data_info, block, text_len):
 
-def insert_data(x):
-
-    test_data_list = gen_test_data(x)
     count = 1
     count_time = time.time()
 
-    for test_data in test_data_list:
+    x_data = []
+    y_data = []
+
+    for test_data in data_info:
         sql = "insert into article_info (title, text, date) values " \
               "('%s', '%s', '%s')" % (str(test_data['title']), test_data['text'], test_data['date'])
 
         cur.execute(sql)
         count += 1
-        if count % 1000 == 0:
-            conn.commit()
+        conn.commit()
+        if count % block == 0:
+            # conn.commit()
             tmp_time = time.time()
             per_time = tmp_time - count_time
             print(count, per_time)
             count_time = time.time()
+            x_data.append(count)
+            y_data.append(per_time)
 
     conn.close()
+    gen_graph(x_data, y_data, 'PostgreSQL', 'one_by_one', text_len)
 
 
 if __name__ == '__main__':
 
+    data_num = 100000
+    block_num = 5000
+    text_len = 10000
+    test_data_list = gen_test_data(data_num, text_len)
+
     time_start = time.time()
-    insert_data(1000000)
+    insert_data(test_data_list, block_num, text_len)
     time_end = time.time()
+
     print('totally cost', time_end - time_start)

@@ -14,7 +14,7 @@ import datetime
 def gen_graph(x_data, y_data, db_name, insert_type, text_len):
 
     date = datetime.date.today().strftime('%Y-%m-%d')
-    print(date)
+    # print(date)
 
     plt.figure(dpi=300)
     plt.plot(x_data, y_data)

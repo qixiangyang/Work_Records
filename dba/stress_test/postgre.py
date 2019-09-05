@@ -11,20 +11,14 @@ from generate_data import gen_test_data
 from draw_data import gen_graph
 
 
-conn = psycopg2.connect(database="wangyuebing", user="postgres",
-                        password="12345678", host="127.0.0.1",
+conn = psycopg2.connect(database="wangyuebing",
+                        user="postgres",
+                        password="12345678",
+                        host="127.0.0.1",
                         port="5432")
-
 print("Opened database successfully")
 
 cur = conn.cursor()
-
-# cur.execute("""create table article_info (
-#             id serial primary key,
-#             title text not null,
-#             text text not null,
-#             date date not null)""")
-# print('创建表成功')
 
 
 def insert_data(data_info, block, text_len):
@@ -41,9 +35,9 @@ def insert_data(data_info, block, text_len):
 
         cur.execute(sql)
         count += 1
-        conn.commit()
+        # conn.commit()
         if count % block == 0:
-            # conn.commit()
+            conn.commit()
             tmp_time = time.time()
             per_time = tmp_time - count_time
             print(count, per_time)
@@ -52,14 +46,14 @@ def insert_data(data_info, block, text_len):
             y_data.append(per_time)
 
     conn.close()
-    gen_graph(x_data, y_data, 'PostgreSQL', 'one_by_one', text_len)
+    gen_graph(x_data, y_data, 'PostgreSQL', 'block', text_len)
 
 
 if __name__ == '__main__':
 
     data_num = 100000
     block_num = 5000
-    text_len = 10000
+    text_len = 1000
     test_data_list = gen_test_data(data_num, text_len)
 
     time_start = time.time()
@@ -67,3 +61,10 @@ if __name__ == '__main__':
     time_end = time.time()
 
     print('totally cost', time_end - time_start)
+
+    # cur.execute("""create table article_info (
+    #             id serial primary key,
+    #             title text not null,
+    #             text text not null,
+    #             date date not null)""")
+    # print('创建表成功')

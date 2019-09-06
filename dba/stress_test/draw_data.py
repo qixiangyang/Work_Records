@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import datetime
 
 
-def gen_graph(x_data, y_data, db_name, insert_type, text_len):
+def gen_graph(x_data, y_data, db_name, insert_type, text_len, data_len):
 
     date = datetime.date.today().strftime('%Y-%m-%d')
     # print(date)
@@ -21,7 +21,7 @@ def gen_graph(x_data, y_data, db_name, insert_type, text_len):
     plt.title('time flow with data increase')
     plt.ylabel("time, unit:s")
     plt.xlabel("data volume")
-    plt.savefig('{}-{}-{}-{}.png'.format(db_name, insert_type, date, str(text_len)))
+    plt.savefig('{}-{}-{}-{}-{}.png'.format(db_name, insert_type, date, str(text_len), str(data_len)))
 
 
 if __name__ == '__main__':
@@ -30,4 +30,5 @@ if __name__ == '__main__':
     func_name = ''
     insert_type = ''
     text_len = 1000
-    gen_graph(x, y, func_name, insert_type, text_len)
+    data_len = 10
+    gen_graph(x, y, func_name, insert_type, text_len, data_len)

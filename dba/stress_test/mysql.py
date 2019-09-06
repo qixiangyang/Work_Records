@@ -50,8 +50,8 @@ def insert_data(data_info, block, text_len):
 
 if __name__ == '__main__':
 
-    data_num = 1000000
-    block_num = 50000
+    data_num = 10000000
+    block_num = 100000
     text_len = 1000
     test_data_list = gen_test_data(data_num, text_len)
 

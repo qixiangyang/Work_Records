@@ -27,11 +27,12 @@ def insert_data(data_info, block, text_len, data_len):
 
     for test_data in data_info:
         count += 1
-        data_list.append(test_data)
+        # data_list.append(test_data)
+        db_insert.insert_one(test_data)
 
         if count % block == 0:
             # print(data_list)
-            db_insert.insert_many(data_list)
+            # db_insert.insert_many(data_list)
             tmp_time = time.time()
             per_time = tmp_time - count_time
             print(count, per_time)
@@ -41,13 +42,13 @@ def insert_data(data_info, block, text_len, data_len):
             x_data.append(count)
             y_data.append(per_time)
 
-    gen_graph(x_data, y_data, 'Mongo', 'block', text_len, data_len)
+    gen_graph(x_data, y_data, 'Mongo', 'one_by_one', text_len, data_len)
 
 
 if __name__ == '__main__':
 
-    data_num = 10000000
-    block_num = 100000
+    data_num = 50000
+    block_num = 5000
     text_len = 1000
     test_data_list = gen_test_data(data_num, text_len)
 

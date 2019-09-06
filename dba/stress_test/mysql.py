@@ -20,7 +20,7 @@ conn = MySQLdb.connect(
 cur = conn.cursor()
 
 
-def insert_data(data_info, block, text_len):
+def insert_data(data_info, block, text_len, data_num):
 
     count = 1
     count_time = time.time()
@@ -34,9 +34,9 @@ def insert_data(data_info, block, text_len):
 
         cur.execute(sql)
         count += 1
-        # conn.commit()
+        conn.commit()
         if count % block == 0:
-            conn.commit()
+            # conn.commit()
             tmp_time = time.time()
             per_time = tmp_time - count_time
             print(count, per_time)
@@ -45,18 +45,18 @@ def insert_data(data_info, block, text_len):
             y_data.append(per_time)
 
     conn.close()
-    gen_graph(x_data, y_data, 'MySQL', 'block', text_len)
+    gen_graph(x_data, y_data, 'MySQL', 'one_by_one', text_len, data_num)
 
 
 if __name__ == '__main__':
 
-    data_num = 10000000
-    block_num = 100000
+    data_num = 50000
+    block_num = 5000
     text_len = 1000
     test_data_list = gen_test_data(data_num, text_len)
 
     time_start = time.time()
-    insert_data(test_data_list, block_num, text_len)
+    insert_data(test_data_list, block_num, text_len, data_num)
     time_end = time.time()
 
     print('totally cost', time_end - time_start)

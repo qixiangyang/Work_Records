@@ -1,4 +1,4 @@
-# Hadoop体系生态学习
+# Hadoop生态学习记录
 
 ## Hadoop应用背景
 
@@ -52,7 +52,7 @@ MongoDB： schema-less的数据库，在变化快、事务性要求不强的场�
 HBase：海量数据的存储，需要高并发查询的场景[简单查询]，比如日志 <br>
 参考资料：[Memcached、Redis、MongoDB、HBase对比](https://juejin.im/entry/5b120f016fb9a01e53 28261e "Memcached、Redis、MongoDB、HBase对比").
 
-### 计算引擎&MR
+### 计算引擎&操作MapReduce
 #### Spark：
 Spark是一个开源集群运算框架，相对于Hadoop的MapReduce会在运行完工作后将中介数据存放到磁盘中，Spark使用了存储器内运算技术，能在数据尚未写入硬盘时即在存储器内分析运算。<br>
 Spark在存储器内运行程序的运算速度能做到比Hadoop MapReduce的运算速度快上100倍，即便是运行程序于硬盘时，Spark也能快上10倍速度。<br>
@@ -70,6 +70,26 @@ Tez作为一个框架工具，特定为hive和pig提供批量计算
 是在MaoReduce之上的一层，把Java API 进行了封装，简化了MapReduce的开发，使得开发者能够通过简单的Pig-Latin语言就能操控集群上的数据。<br>
 看起来好像和Hive有点像，但是实际上Pig 更像一种脚本工具，而Hive是数据仓库。<br>
 参考资料：[Apache Pig入门1 –介绍/基本架构/与Hive对比](https://blog.csdn.net/joeyon1985/article/details/41805743 "Apache Pig入门1 –介绍/基本架构/与Hive对比"). 
+
+#### Oozie
+在 Hadoop 中执行的任务有时候需要把多个 Map/Reduce 作业连接到一起，这样才能够达到目的<br>
+Oozie可以把多个 Map/Reduce 作业组合到一个逻辑工作单元中，从而完成更大型的任务。<br>
+实际上就是一个工作流控制软件，工作流是放置在控制依赖 DAG（有向无环图 Direct Acyclic Graph）中的一组动作 （听起来和airflow有点像）<br>
+
+### 任务调度&资源管理
+#### ZooKeeper
+ZooKeeper 是一个典型的分布式数据一致性解决方案，<br>
+分布式应用程序可以基于 ZooKeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。<br>
+Zookeeper 一个最常用的使用场景就是用于担任服务生产者和服务消费者的注册中心。<br>
+参考资料：[如果有人问你ZooKeeper是什么，就把这篇文章发给他。](https://juejin.im/post/5baf7db75188255c3d11622e "如果有人问你ZooKeeper是什么，就把这篇文章发给他。"). 
+
+#### ZooKeeper VS YARN
+分布式系统有很多问题 其中有两个
+1. Coordination
+2. Resource Management
+Zookeeper偏重解决的是前者
+Yarn偏重解决的是后者
+参考资料：[Yarn和 Zookeeper之间是什么关系，都是管理节点，那他们的应用场景有何区别？](https://www.zhihu.com/question/41254423 "Yarn和 Zookeeper之间是什么关系，都是管理节点，那他们的应用场景有何区别？"). 
 
 ### 数据分析&建模
 
@@ -95,20 +115,7 @@ Sqoop是一个用来将Hadoop和关系型数据库中的数据相互转移的开
 可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。<br>
 参考资料：[使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟](https://www.zybuluo.com/aitanjupt/note/209968 "使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟"). 
 
-### 任务调度&资源管理
-#### ZooKeeper
-ZooKeeper 是一个典型的分布式数据一致性解决方案，<br>
-分布式应用程序可以基于 ZooKeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。<br>
-Zookeeper 一个最常用的使用场景就是用于担任服务生产者和服务消费者的注册中心。<br>
-参考资料：[如果有人问你ZooKeeper是什么，就把这篇文章发给他。](https://juejin.im/post/5baf7db75188255c3d11622e "如果有人问你ZooKeeper是什么，就把这篇文章发给他。"). 
 
-#### ZooKeeper VS YARN
-分布式系统有很多问题 其中有两个
-1. Coordination
-2. Resource Management
-Zookeeper偏重解决的是前者
-Yarn偏重解决的是后者
-参考资料：[Yarn和 Zookeeper之间是什么关系，都是管理节点，那他们的应用场景有何区别？](https://www.zhihu.com/question/41254423 "Yarn和 Zookeeper之间是什么关系，都是管理节点，那他们的应用场景有何区别？"). 
 
 ### 日志采集&消息队列
 
@@ -154,11 +161,11 @@ hue是hadoop生态系统的统一webUI。你可以通过hue的界面，链接hiv
 
 简单来说Ambari 和 CM 是有直接的竞争关系。主要用于集群的搭建和监控，而HUE是用来和集群进行交互的，比如查询数据，配置MapReduce任务等。<br>
 
-参考资料：[Cloudera Manager(简称CM)+CDH构建大数据平台](https://www.jianshu.com/p/1ed522c1ad1e "Cloudera Manager(简称CM)+CDH构建大数据平台"). 
+参考资料：[Cloudera Manager(简称CM)+CDH构建大数据平台](https://www.jianshu.com/p/1ed522c1ad1e "Cloudera Manager(简称CM)+CDH构建大数据平台"). <br>
 参考资料：[hadoop web管理Hue,Ambari 和CM 的区别是什么?](https://www.zhihu.com/question/26794071 "hadoop web管理Hue,Ambari 和CM 的区别是什么?"). 
 
 ### 计算系统
-#### Strom
+#### Storm
 Storm是一个分布式、可靠的实时计算系统。与Hadoop不同的是，它采用流式的消息处理方法，<br>
 对于每条消息输入到系统中后就能被立即处理。适用于一些对实时性要求高的场景，比如广告点击在线统计、交易额实时统计等。 <br>
 参考资料：[Hadoop、Storm和Spark 三者的区别、比较](https://blog.csdn.net/Coder__CS/article/details/78868346 "Hadoop、Storm和Spark 三者的区别、比较"). 
@@ -178,7 +185,6 @@ Solr是高度可扩展的，并提供了分布式搜索和索引复制。Solr是
 
 Elasticsearch是一个实时的分布式搜索和分析引擎。它可以帮助你用前所未有的速度去处理大规模数据。 <br>
 它可以用于全文搜索，结构化搜索以及分析，当然你也可以将这三者进行组合。<br>
-
 
 #### Elasticsearch VS Solr
 二者安装都很简单； <br>

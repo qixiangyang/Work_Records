@@ -52,7 +52,7 @@ MongoDB： schema-less的数据库，在变化快、事务性要求不强的场�
 HBase：海量数据的存储，需要高并发查询的场景[简单查询]，比如日志 <br>
 参考资料：[Memcached、Redis、MongoDB、HBase对比](https://juejin.im/entry/5b120f016fb9a01e53 28261e "Memcached、Redis、MongoDB、HBase对比").
 
-### 计算引擎
+### 计算引擎&MR
 #### Spark：
 Spark是一个开源集群运算框架，相对于Hadoop的MapReduce会在运行完工作后将中介数据存放到磁盘中，Spark使用了存储器内运算技术，能在数据尚未写入硬盘时即在存储器内分析运算。<br>
 Spark在存储器内运行程序的运算速度能做到比Hadoop MapReduce的运算速度快上100倍，即便是运行程序于硬盘时，Spark也能快上10倍速度。<br>
@@ -66,6 +66,13 @@ Tez 产生的主要原因是绕开 MapReduce 所施加的限制。Tez 项目的�
 Spark更像是一个通用的计算引擎，提供内存计算，实时流处理，机器学习等多种计算方式，适合迭代计算
 Tez作为一个框架工具，特定为hive和pig提供批量计算
 
+#### Pig
+是在MaoReduce之上的一层，把Java API 进行了封装，简化了MapReduce的开发，使得开发者能够通过简单的Pig-Latin语言就能操控集群上的数据。<br>
+看起来好像和Hive有点像，但是实际上Pig 更像一种脚本工具，而Hive是数据仓库。<br>
+参考资料：[Apache Pig入门1 –介绍/基本架构/与Hive对比](https://blog.csdn.net/joeyon1985/article/details/41805743 "Apache Pig入门1 –介绍/基本架构/与Hive对比"). 
+
+### 数据分析&建模
+
 #### Impala
 Impala是基于Hive的大数据实时分析查询引擎，直接使用Hive的元数据库Metadata,意味着impala元数据都存储在Hive的metastore中。 <br>
 并且impala兼容Hive的sql解析，实现了Hive的SQL语义的子集，功能还在不断的完善中。 <br>
@@ -77,22 +84,18 @@ Impala是基于Hive的大数据实时分析查询引擎，直接使用Hive的元
 Kylin和Hive功能是类似的，提供Hadoop/Spark之上的SQL查询接口及多维分析（OLAP）能力以支持超大规模数据。<br>
 通过构建一个数据立方体模型，来实现数据的快速查询和相应,理论上能获得比Hive更好的性能 <br>
 
+#### Mahout
+提供一些可扩展的机器学习领域经典算法的实现，旨在帮助开发人员更加方便快捷地创建智能应用程序。<br>
+Mahout包含许多实现，包括聚类、分类、推荐过滤、频繁子项挖掘。此外，通过使用Apache Hadoop库。<br>
+Mahout可以有效地扩展到云中。<br>
+
 ### ETL
 #### Sqoop
 Sqoop是一个用来将Hadoop和关系型数据库中的数据相互转移的开源工具，<br>
 可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。<br>
 参考资料：[使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟](https://www.zybuluo.com/aitanjupt/note/209968 "使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟"). 
 
-#### Pig
-是在MaoReduce之上的一层，把Java API 进行了封装，简化了MapReduce的开发，使得开发者能够通过简单的Pig-Latin语言就能操控集群上的数据。<br>
-看起来好像和Hive有点像，但是实际上Pig 更像一种脚本工具，而Hive是数据仓库。<br>
-参考资料：[Apache Pig入门1 –介绍/基本架构/与Hive对比](https://blog.csdn.net/joeyon1985/article/details/41805743 "Apache Pig入门1 –介绍/基本架构/与Hive对比"). 
-
-#### Mahout
-提供一些可扩展的机器学习领域经典算法的实现，旨在帮助开发人员更加方便快捷地创建智能应用程序。<br>
-Mahout包含许多实现，包括聚类、分类、推荐过滤、频繁子项挖掘。此外，通过使用Apache Hadoop库。<br>
-Mahout可以有效地扩展到云中。<br>
-
+### 任务调度&资源管理
 #### ZooKeeper
 ZooKeeper 是一个典型的分布式数据一致性解决方案，<br>
 分布式应用程序可以基于 ZooKeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。<br>
@@ -107,6 +110,12 @@ Zookeeper偏重解决的是前者
 Yarn偏重解决的是后者
 参考资料：[Yarn和 Zookeeper之间是什么关系，都是管理节点，那他们的应用场景有何区别？](https://www.zhihu.com/question/41254423 "Yarn和 Zookeeper之间是什么关系，都是管理节点，那他们的应用场景有何区别？"). 
 
+### 日志采集&消息队列
+
+#### Flume：
+Flume是开源日志系统。是一个分布式、可靠性和高可用的海量日志聚合系统，支持在系统中定制各类数据发送方，用于收集数据；同时，FLume提供对数据进行简单处理，并写到各种数据接收方（可定制）的能力。<br>
+参考资料：[Flume技术原理](https://cshihong.github.io/2018/06/02/Flume%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/ "Flume技术原理"). 
+
 
 #### Kafka
 Kafka主要用途是数据集成，或者说是流数据集成，以Pub/Sub形式的消息总线形式提供。<br>
@@ -116,26 +125,13 @@ Kafka主要用途是数据集成，或者说是流数据集成，以Pub/Sub形�
 保证数据流的顺序。<br>
 参考资料：[kafka解决了什么问题?](https://www.zhihu.com/question/53331259 "kafka解决了什么问题?"). 
 
-#### Flume：
-Flume是开源日志系统。是一个分布式、可靠性和高可用的海量日志聚合系统，支持在系统中定制各类数据发送方，用于收集数据；同时，FLume提供对数据进行简单处理，并写到各种数据接收方（可定制）的能力。<br>
-参考资料：[Flume技术原理](https://cshihong.github.io/2018/06/02/Flume%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/ "Flume技术原理"). 
-
-
 #### Flume VS Kafka
 业界比较典型的一中用法是：
 线上数据 -> flume -> kafka -> hdfs -> MR离线计算 <br>
 线上数据 -> flume -> kafka -> storm <br>
 参考资料：[日志采集系统flume和kafka有什么区别及联系，它们分别在什么时候使用，什么时候又可以结合？](https://www.zhihu.com/question/36688175 "日志采集系统flume和kafka有什么区别及联系，它们分别在什么时候使用，什么时候又可以结合？"). 
 
-### Avro
-Avro是一种远程过程调用和数据序列化框架，是在Apache的Hadoop项目之内开发的。它使用JSON来定义数据类型和通讯协议，使用压缩二进制格式来序列化数据。
-它主要用于Hadoop，它可以为持久化数据提供一种序列化格式，并为Hadoop节点间及从客户端程序到Hadoop服务的通讯提供一种电报格式。
-
-### Strom
-Storm是一个分布式、可靠的实时计算系统。与Hadoop不同的是，它采用流式的消息处理方法，<br>
-对于每条消息输入到系统中后就能被立即处理。适用于一些对实时性要求高的场景，比如广告点击在线统计、交易额实时统计等。 <br>
-参考资料：[Hadoop、Storm和Spark 三者的区别、比较](https://blog.csdn.net/Coder__CS/article/details/78868346 "Hadoop、Storm和Spark 三者的区别、比较"). 
-
+### Hadoop集群管理&交互
 #### Ambari
 
 Ambari 是 Hortonworks 贡献给 Apache 开源社区的顶级项目，属于 Hadoop 生态中的重要组成部分，Hortonworks 本身也提供一些基于 Apache Hadoop 开发良好的商业应用组件，例如 HDP 数据平台。<br>
@@ -160,6 +156,19 @@ hue是hadoop生态系统的统一webUI。你可以通过hue的界面，链接hiv
 
 参考资料：[Cloudera Manager(简称CM)+CDH构建大数据平台](https://www.jianshu.com/p/1ed522c1ad1e "Cloudera Manager(简称CM)+CDH构建大数据平台"). 
 参考资料：[hadoop web管理Hue,Ambari 和CM 的区别是什么?](https://www.zhihu.com/question/26794071 "hadoop web管理Hue,Ambari 和CM 的区别是什么?"). 
+
+### 计算系统
+#### Strom
+Storm是一个分布式、可靠的实时计算系统。与Hadoop不同的是，它采用流式的消息处理方法，<br>
+对于每条消息输入到系统中后就能被立即处理。适用于一些对实时性要求高的场景，比如广告点击在线统计、交易额实时统计等。 <br>
+参考资料：[Hadoop、Storm和Spark 三者的区别、比较](https://blog.csdn.net/Coder__CS/article/details/78868346 "Hadoop、Storm和Spark 三者的区别、比较"). 
+
+### 其他组件 (其实是不知道这个东西怎么用 逃)
+#### Avro
+Avro是一种远程过程调用和数据序列化框架，是在Apache的Hadoop项目之内开发的。它使用JSON来定义数据类型和通讯协议，使用压缩二进制格式来序列化数据。
+它主要用于Hadoop，它可以为持久化数据提供一种序列化格式，并为Hadoop节点间及从客户端程序到Hadoop服务的通讯提供一种电报格式。
+
+### 搜索引擎[不是Hadoop生态中的内容，只是为了厘清概念]
 
 #### Solr
 Solr（读作“solar”）是Apache Lucene项目的开源企业搜索平台。其主要功能包括全文检索、命中标示、分面搜索、动态聚类、数据库集成，以及富文本（如Word、PDF）的处理。<br>

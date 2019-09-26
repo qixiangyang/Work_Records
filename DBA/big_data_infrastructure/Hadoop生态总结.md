@@ -141,7 +141,6 @@ Storm是一个分布式、可靠的实时计算系统。与Hadoop不同的是，
 Ambari 是 Hortonworks 贡献给 Apache 开源社区的顶级项目，属于 Hadoop 生态中的重要组成部分，Hortonworks 本身也提供一些基于 Apache Hadoop 开发良好的商业应用组件，例如 HDP 数据平台。<br>
 Ambari 不仅整合了常用的运维管理工具，更重要的本身专注于 Hadoop 集群管理方案，所以它的优势就在于 Hadoop 集群的供应、管理和监控等，最能解决我们的需求痛点。<br>
 Ambari 基于 web 的特点能够直现给使用者直观用户界面，能够极大提升管理效率和降低本身开发成本。<br>
-参考资料：[Ambari 接管线上 Hadoop 游戏数据集群实践](https://www.infoq.cn/article/ambari-hadoop-game-data-cluster-practice "Ambari 接管线上 Hadoop 游戏数据集群实践"). 
 
 #### Ambari VS HUE VS Cloudera Manager(CM)
 
@@ -157,12 +156,28 @@ Cloudera Manager(简称CM)是Cloudera公司开发的一款大数据集群安装�
 hue是hadoop生态系统的统一webUI。你可以通过hue的界面，链接hive，发出hive语句。<br>
 我们可以在浏览器端的Web控制台上与Hadoop集群进行交互来分析处理数据，例如操作HDFS上的数据，运行MapReduce Job等等。<br>
 
-简单来说Ambari 和 CM 是有直接的竞争关系。主要用于集群的搭建和监控，而HUE是用来和集群进行交互的，比如查询数据，配置MapReduce任务等。
+简单来说Ambari 和 CM 是有直接的竞争关系。主要用于集群的搭建和监控，而HUE是用来和集群进行交互的，比如查询数据，配置MapReduce任务等。<br>
 
 参考资料：[Cloudera Manager(简称CM)+CDH构建大数据平台](https://www.jianshu.com/p/1ed522c1ad1e "Cloudera Manager(简称CM)+CDH构建大数据平台"). 
 参考资料：[hadoop web管理Hue,Ambari 和CM 的区别是什么?](https://www.zhihu.com/question/26794071 "hadoop web管理Hue,Ambari 和CM 的区别是什么?"). 
 
-Solr
-ES：
+#### Solr
+Solr（读作“solar”）是Apache Lucene项目的开源企业搜索平台。其主要功能包括全文检索、命中标示、分面搜索、动态聚类、数据库集成，以及富文本（如Word、PDF）的处理。<br>
+Solr是高度可扩展的，并提供了分布式搜索和索引复制。Solr是最流行的企业级搜索引擎，Solr4 还增加了NoSQL支持。<br>
+
+#### Elasticsearch(ES)：
+
+Elasticsearch是一个实时的分布式搜索和分析引擎。它可以帮助你用前所未有的速度去处理大规模数据。 <br>
+它可以用于全文搜索，结构化搜索以及分析，当然你也可以将这三者进行组合。<br>
+
+
+#### Elasticsearch VS Solr
+二者安装都很简单； <br>
+Solr 利用 Zookeeper 进行分布式管理，而 Elasticsearch 自身带有分布式协调管理功能; <br>
+Solr 支持更多格式的数据，而 Elasticsearch 仅支持json文件格式； <br>
+Solr 官方提供的功能更多，而 Elasticsearch 本身更注重于核心功能，高级功能多有第三方插件提供； <br>
+Solr 在传统的搜索应用中表现好于 Elasticsearch，但在处理实时搜索应用时效率明显低于 Elasticsearch。 <br>
+
+参考资料：[搜索引擎选择： Elasticsearch与Solr](http://i.zhcy.tk/blog/elasticsearchyu-solr/ "搜索引擎选择： Elasticsearch与Solr"). 
 
 

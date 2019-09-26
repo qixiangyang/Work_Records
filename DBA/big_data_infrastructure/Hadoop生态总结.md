@@ -8,6 +8,8 @@ Hadoop就是为了处理这种超过单机尺度的数据<br>
 
 Hadoop及其生态已经事实上成为大数据体系的标准 <br>
 
+![1](DBA/big_data_infrastructure/static/Hadoop.png)
+
 ## Hadoop的基本构成
 
 ### HDFS
@@ -159,7 +161,6 @@ hue是hadoop生态系统的统一webUI。你可以通过hue的界面，链接hiv
 
 参考资料：[Cloudera Manager(简称CM)+CDH构建大数据平台](https://www.jianshu.com/p/1ed522c1ad1e "Cloudera Manager(简称CM)+CDH构建大数据平台"). 
 参考资料：[hadoop web管理Hue,Ambari 和CM 的区别是什么?](https://www.zhihu.com/question/26794071 "hadoop web管理Hue,Ambari 和CM 的区别是什么?"). 
-
 
 Solr
 ES：

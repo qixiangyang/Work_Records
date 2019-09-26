@@ -8,7 +8,7 @@ Hadoop就是为了处理这种超过单机尺度的数据<br>
 
 Hadoop及其生态已经事实上成为大数据体系的标准 <br>
 
-![1](DBA/big_data_infrastructure/static/Hadoop.png)
+![1](static/Hadoop.png)
 
 ## Hadoop的基本构成
 

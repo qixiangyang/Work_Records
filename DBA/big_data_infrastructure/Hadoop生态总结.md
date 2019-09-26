@@ -75,6 +75,8 @@ Tez作为一个框架工具，特定为hive和pig提供批量计算
 在 Hadoop 中执行的任务有时候需要把多个 Map/Reduce 作业连接到一起，这样才能够达到目的<br>
 Oozie可以把多个 Map/Reduce 作业组合到一个逻辑工作单元中，从而完成更大型的任务。<br>
 实际上就是一个工作流控制软件，工作流是放置在控制依赖 DAG（有向无环图 Direct Acyclic Graph）中的一组动作 （听起来和airflow有点像）<br>
+参考资料：[Oozie 简介](https://www.infoq.cn/article/introductionOozie/ "Oozie 简介"). 
+
 
 ### 任务调度&资源管理
 #### ZooKeeper
@@ -100,6 +102,25 @@ Impala是基于Hive的大数据实时分析查询引擎，直接使用Hive的元
 参考资料：[impala的原理架构介绍及应用场景](https://blog.csdn.net/javajxz008/article/details/50523332 "impala的原理架构介绍及应用场景"). 
 参考资料：[Impala - Impala和Hive的关系](https://www.jianshu.com/p/5fa3fa2dbd9a "Impala - Impala和Hive的关系"). 
 
+#### Presto
+Presto是由Facebook开发的一个分布式SQL查询引擎， 它被设计为用来专门进行高速、实时的数据分析。<br>
+它的产生是为了解决Hive的MapReduce模型太慢以及不能通过BI或Dashboards直接展现HDFS数据等问题。<br>
+Presto是一个纯粹的计算引擎，它不存储数据，其通过Connector获取第三方Storage服务的数据。<br>
+
+参考资料：[分布式SQL查询引擎Presto原理介绍](http://armsword.com/2017/12/05/presto/ "分布式SQL查询引擎Presto原理介绍"). 
+
+#### Hive VS Impala VS Spark-SQL VS Presto VS Kylin
+Hive Presto Impala SparkSQL
+
+MPP架构的系统（Presto/Impala/SparkSQL等）有很好的数据量和灵活性支持，但是对响应时间是没有保证的。当数据量和计算复杂度增加后，响应时间会变慢，从秒级到分钟级，甚至小时级都有可能。<br>
+
+搜索引擎架构的系统（Elasticsearch等）相对比MPP系统，在入库时将数据转换为倒排索引，采用Scatter-Gather计算模型，牺牲了灵活性换取很好的性能，在搜索类查询上能做到亚秒级响应。但是对于扫描聚合为主的查询，随着处理数据量的增加，响应时间也会退化到分钟级。<br>
+
+预计算系统（Druid/Kylin等）则在入库时对数据进行预聚合，进一步牺牲灵活性换取性能，以实现对超大数据集的秒级响应。<br>
+
+参考资料：[presto、druid、sparkSQL、kylin的对比分析，如性能、架构等，有什么异同？](https://www.zhihu.com/question/41541395 "presto、druid、sparkSQL、kylin的对比分析，如性能、架构等，有什么异同？"). 
+
+
 #### Kylin
 Kylin和Hive功能是类似的，提供Hadoop/Spark之上的SQL查询接口及多维分析（OLAP）能力以支持超大规模数据。<br>
 通过构建一个数据立方体模型，来实现数据的快速查询和相应,理论上能获得比Hive更好的性能 <br>
@@ -116,13 +137,11 @@ Sqoop是一个用来将Hadoop和关系型数据库中的数据相互转移的开
 参考资料：[使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟](https://www.zybuluo.com/aitanjupt/note/209968 "使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟"). 
 
 
-
 ### 日志采集&消息队列
 
 #### Flume：
 Flume是开源日志系统。是一个分布式、可靠性和高可用的海量日志聚合系统，支持在系统中定制各类数据发送方，用于收集数据；同时，FLume提供对数据进行简单处理，并写到各种数据接收方（可定制）的能力。<br>
 参考资料：[Flume技术原理](https://cshihong.github.io/2018/06/02/Flume%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/ "Flume技术原理"). 
-
 
 #### Kafka
 Kafka主要用途是数据集成，或者说是流数据集成，以Pub/Sub形式的消息总线形式提供。<br>

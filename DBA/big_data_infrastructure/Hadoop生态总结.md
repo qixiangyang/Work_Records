@@ -56,14 +56,6 @@ Spark是一个开源集群运算框架，相对于Hadoop的MapReduce会在运行
 Spark在存储器内运行程序的运算速度能做到比Hadoop MapReduce的运算速度快上100倍，即便是运行程序于硬盘时，Spark也能快上10倍速度。<br>
 参考资料：[维基百科](https://zh.wikipedia.org/wiki/Apache_Spark "维基百科"). 
 
-### Impala
-Impala是基于Hive的大数据实时分析查询引擎，直接使用Hive的元数据库Metadata,意味着impala元数据都存储在Hive的metastore中。 <br>
-并且impala兼容Hive的sql解析，实现了Hive的SQL语义的子集，功能还在不断的完善中。 <br>
-能够查询存储在Hadoop的HDFS和Hbase中的PB级大数据。查询速度快是其最大的卖点 <br>
-参考资料：[impala的原理架构介绍及应用场景](https://blog.csdn.net/javajxz008/article/details/50523332 "impala的原理架构介绍及应用场景"). 
-参考资料：[Impala - Impala和Hive的关系](https://www.jianshu.com/p/5fa3fa2dbd9a "Impala - Impala和Hive的关系"). 
-
-
 #### Tez：
 Tez 产生的主要原因是绕开 MapReduce 所施加的限制。Tez 项目的目标是支持高度定制化，这样它就能够满足各种用例的需要，让人们不必借助其他的外部方式就能完成自己的工作。<br>
 参考资料：[spark与tez比较](http://www.zdingke.com/2016/12/05/spark%E4%B8%8Etez%E6%AF%94%E8%BE%83/?ysvulg=qgp7x1 "spark与tez比较"). 
@@ -71,6 +63,13 @@ Tez 产生的主要原因是绕开 MapReduce 所施加的限制。Tez 项目的�
 #### Spark VS TeX
 Spark更像是一个通用的计算引擎，提供内存计算，实时流处理，机器学习等多种计算方式，适合迭代计算
 Tez作为一个框架工具，特定为hive和pig提供批量计算
+
+#### Impala
+Impala是基于Hive的大数据实时分析查询引擎，直接使用Hive的元数据库Metadata,意味着impala元数据都存储在Hive的metastore中。 <br>
+并且impala兼容Hive的sql解析，实现了Hive的SQL语义的子集，功能还在不断的完善中。 <br>
+能够查询存储在Hadoop的HDFS和Hbase中的PB级大数据。查询速度快是其最大的卖点 <br>
+参考资料：[impala的原理架构介绍及应用场景](https://blog.csdn.net/javajxz008/article/details/50523332 "impala的原理架构介绍及应用场景"). 
+参考资料：[Impala - Impala和Hive的关系](https://www.jianshu.com/p/5fa3fa2dbd9a "Impala - Impala和Hive的关系"). 
 
 #### Kylin
 Kylin和Hive功能是类似的，提供Hadoop/Spark之上的SQL查询接口及多维分析（OLAP）能力以支持超大规模数据。<br>
@@ -82,8 +81,6 @@ Sqoop是一个用来将Hadoop和关系型数据库中的数据相互转移的开
 可以将一个关系型数据库（例如 ： MySQL ,Oracle ,Postgres等）中的数据导进到Hadoop的HDFS中，也可以将HDFS的数据导进到关系型数据库中。<br>
 参考资料：[使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟](https://www.zybuluo.com/aitanjupt/note/209968 "使用Sqoop从MySQL导入数据到Hive和HBase 及近期感悟"). 
 
-### MR计算
-
 #### Pig
 是在MaoReduce之上的一层，把Java API 进行了封装，简化了MapReduce的开发，使得开发者能够通过简单的Pig-Latin语言就能操控集群上的数据。<br>
 看起来好像和Hive有点像，但是实际上Pig 更像一种脚本工具，而Hive是数据仓库。<br>
@@ -94,7 +91,7 @@ Sqoop是一个用来将Hadoop和关系型数据库中的数据相互转移的开
 Mahout包含许多实现，包括聚类、分类、推荐过滤、频繁子项挖掘。此外，通过使用Apache Hadoop库。<br>
 Mahout可以有效地扩展到云中。<br>
 
-### ZooKeeper
+#### ZooKeeper
 ZooKeeper 是一个典型的分布式数据一致性解决方案，<br>
 分布式应用程序可以基于 ZooKeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。<br>
 Zookeeper 一个最常用的使用场景就是用于担任服务生产者和服务消费者的注册中心。<br>
@@ -137,6 +134,34 @@ Storm是一个分布式、可靠的实时计算系统。与Hadoop不同的是，
 对于每条消息输入到系统中后就能被立即处理。适用于一些对实时性要求高的场景，比如广告点击在线统计、交易额实时统计等。 <br>
 参考资料：[Hadoop、Storm和Spark 三者的区别、比较](https://blog.csdn.net/Coder__CS/article/details/78868346 "Hadoop、Storm和Spark 三者的区别、比较"). 
 
+#### Ambari
+
+Ambari 是 Hortonworks 贡献给 Apache 开源社区的顶级项目，属于 Hadoop 生态中的重要组成部分，Hortonworks 本身也提供一些基于 Apache Hadoop 开发良好的商业应用组件，例如 HDP 数据平台。<br>
+Ambari 不仅整合了常用的运维管理工具，更重要的本身专注于 Hadoop 集群管理方案，所以它的优势就在于 Hadoop 集群的供应、管理和监控等，最能解决我们的需求痛点。<br>
+Ambari 基于 web 的特点能够直现给使用者直观用户界面，能够极大提升管理效率和降低本身开发成本。<br>
+参考资料：[Ambari 接管线上 Hadoop 游戏数据集群实践](https://www.infoq.cn/article/ambari-hadoop-game-data-cluster-practice "Ambari 接管线上 Hadoop 游戏数据集群实践"). 
+
+#### Ambari VS HUE VS Cloudera Manager(CM)
+
+#### Ambari
+Ambari 专注于Hadoop生态内各个组件的集成管理和部署，能够可视化的管理集群中各个节点的状态。和cloudera manager功能比较类似。<br>
+
+#### Cloudera Manager
+Cloudera Manager(简称CM)是Cloudera公司开发的一款大数据集群安装部署利器，这款利器具有集群自动化安装、中心化管理、集群监控、报警等功能<br>
+使得安装集群从几天的时间缩短在几小时以内，运维人员从数十人降低到几人以内，极大的提高集群管理的效率。<br>
+
+#### HUE 
+一句话总结，HUE是用来操作Hadoop生态内各个组件的一个统一的可视化平台。
+hue是hadoop生态系统的统一webUI。你可以通过hue的界面，链接hive，发出hive语句。<br>
+我们可以在浏览器端的Web控制台上与Hadoop集群进行交互来分析处理数据，例如操作HDFS上的数据，运行MapReduce Job等等。<br>
+
+简单来说Ambari 和 CM 是有直接的竞争关系。主要用于集群的搭建和监控，而HUE是用来和集群进行交互的，比如查询数据，配置MapReduce任务等。
+
+参考资料：[Cloudera Manager(简称CM)+CDH构建大数据平台](https://www.jianshu.com/p/1ed522c1ad1e "Cloudera Manager(简称CM)+CDH构建大数据平台"). 
+参考资料：[hadoop web管理Hue,Ambari 和CM 的区别是什么?](https://www.zhihu.com/question/26794071 "hadoop web管理Hue,Ambari 和CM 的区别是什么?"). 
+
+
 Solr
 ES：
+
 

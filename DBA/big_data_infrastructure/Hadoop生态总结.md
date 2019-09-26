@@ -17,7 +17,7 @@ HDFS是一种分布式文件系统，是数据存储的物理载体，在它的�
 MapReduce，以下简称MR。负责计算数据，但是MR本身计算效率较低。在此基础上发展出了Tez和Spark，是第二代计算引擎。<br>
 
 ### YARN
-Hadoop的资源监控与调度系统，替代原有的JobTracker。是Hadoop2.0新增的任务框架
+Hadoop的资源监控与调度系统，替代原有的JobTracker。是Hadoop2.0新增的任务管理框架
 
 ## Hadoop生态中的工具、组件
 

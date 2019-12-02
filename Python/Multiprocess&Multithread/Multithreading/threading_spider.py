@@ -11,56 +11,50 @@ import time
 from lxml import etree
 from queue import Queue
 
-# url = 'https://qixiangyang.cn/'
-# headers = {'cookie': 'test_thread'}
-# def get_data(index, x):
-#     res = requests.get(url, headers=headers)
-#     print('线程ID：{} 任务ID：{} 请求状态：{}'.format(index, x, res.status_code))
-#     # time.sleep(1)
-#     return res.text
-#
-#
-# def get_title(index, text_info, x):
-#     page_dom = etree.HTML(text_info)
-#     title_list = page_dom.xpath('/html/body/div/div/div[1]/div/h2/a/text()')
-#     print('线程ID：{} 任务ID：{} 结果：{}'.format(index, x, str(title_list)))
-#     return title_list
-#
-#
-# def main(index, q):
-#
-#     while q:
-#         x = q.get()
-#         text_info = get_data(index, x)
-#         get_title(index, text_info, x)
-#
-#
-# """
-# 对待爬取的url种子进行分片，然后每个线程取特定的分片里的数据。
-# This is work, 但是需要更加 Pythonic 的方式。就是使用队列，。
-# deque 是线程安全的。勘误不是
-# deque.Queue 是线程安全的
-# 参考地址：https://juejin.im/post/5b129a1be51d45068a6c91d4
-# deque 双向队列
-# Queue 先进先出队列 FIFO
-# """
-#
-# x_list = list(range(101, 200))
-# q = Queue(100)
-#
-# for _ in x_list:
-#     q.put(_)
-#
-# seg = 10
-# ths = []
-#
-# for _ in range(seg):
-#     th = threading.Thread(target=main, args=(_, q))
-#     th.start()
-#     ths.append(th)
-#
-# for th in ths:
-#     th.join()
+url = 'https://qixiangyang.cn/'
+headers = {'cookie': 'test_thread'}
+def get_data(index, x):
+    res = requests.get(url, headers=headers)
+    print('线程ID：{} 任务ID：{} 请求状态：{}'.format(index, x, res.status_code))
+    # time.sleep(1)
+    return res.text
+
+
+def get_title(index, text_info, x):
+    page_dom = etree.HTML(text_info)
+    title_list = page_dom.xpath('/html/body/div/div/div[1]/div/h2/a/text()')
+    print('线程ID：{} 任务ID：{} 结果：{}'.format(index, x, str(title_list)))
+    return title_list
+
+
+def main(index, task_id_list_seg):
+
+    for x in task_id_list_seg:
+        text_info = get_data(index, x)
+        get_title(index, text_info, x)
+
+
+task_id_list = list(range(101, 200))
+seg = 10
+ths = []
+
+for _ in range(seg):
+    th = threading.Thread(target=main, args=(_, task_id_list[_*seg: (_+1)*seg]))
+    th.start()
+    ths.append(th)
+
+for th in ths:
+    th.join()
+
+"""
+对待爬取的url种子进行分片，然后每个线程取特定的分片里的数据。
+This is work, 但是需要更加 Pythonic 的方式。就是使用队列，。
+deque 是线程安全的。勘误不是
+deque.Queue 是线程安全的
+参考地址：https://juejin.im/post/5b129a1be51d45068a6c91d4
+deque 双向队列
+Queue 先进先出队列 FIFO
+"""
 
 
 class SpiderTest:

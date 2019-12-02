@@ -33,8 +33,8 @@ Hadoop的资源监控与调度系统，替代原有的JobTracker。是Hadoop2.0�
 
 #### Hbase
 
-HBase是一个开源的非关系型分布式数据库（NoSQL），它可以对稀疏文件提供极高的容错率。<br> 
-它参考了谷歌的BigTable建模,运行于HDFS文件系统之上.
+它参考了谷歌的BigTable建HBase是一个开源的非关系型分布式数据库（NoSQL），它可以对稀疏文件提供极高的容错率。<br> 
+模,运行于HDFS文件系统之上.
 ##### 应用场景
 Hbase 类似于Key-Value模式，写入性能极佳，可扩充性强。并发读取速度快<br>
 

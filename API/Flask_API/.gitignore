@@ -1,0 +1,7 @@
+.idea
+venv
+.env
+.flaskenv
+_config.yml
+config.py
+*.jpg

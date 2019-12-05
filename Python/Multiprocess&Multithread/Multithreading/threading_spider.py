@@ -13,6 +13,8 @@ from queue import Queue
 
 url = 'https://qixiangyang.cn/'
 headers = {'cookie': 'test_thread'}
+
+
 def get_data(index, x):
     res = requests.get(url, headers=headers)
     print('线程ID：{} 任务ID：{} 请求状态：{}'.format(index, x, res.status_code))
@@ -99,6 +101,11 @@ class SpiderTest:
             th.join()
 
 
+start = time.time()
+
 url_id = list(range(101, 200))
 a = SpiderTest(url_id, 20)
 a.run()
+
+end = time.time()
+print('总共花费时间:', end - start)
